@@ -73,7 +73,9 @@ int main(void) {
 	uint8_t ec25_estado_actual;
 
 	uint32_t adc_dato;
+	float peso;
 	uint8_t adc_base_de_tiempo=0;
+
 
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -117,6 +119,8 @@ int main(void) {
     //Inicializa todas las funciones necesarias para trabajar con el modem EC25
     printf("Inicializa modem EC25\r\n");
     ec25Inicializacion();
+    startprocess();
+
     //ec25EnviarMensajeMQTT(&ec25_mensaje_de_texto[0], sizeof(ec25_mensaje_de_texto));
     //Configura FSM de modem para enviar mensaje de texto
    //printf("Enviando mensaje de texto por modem EC25\r\n");
@@ -133,11 +137,13 @@ int main(void) {
     	if(adc_base_de_tiempo>10){	// >10 equivale aproximadamente a 2s
     		adc_base_de_tiempo=0;	//reinicia contador de tiempo
     		adcTomarCaptura(PTB8_ADC0_SE11_CH14, &adc_dato);	//inicia lectura por ADC y guarda en variable adc_dato
+    		peso= adc_dato;
     		//printf("ADC ->");
     		//printf("PTB8:%d ",adc_dato);	//imprime resultado ADC
     		//printf("PTB8 vin:%f ",digital_out);
     		//printf("luminosidad:%f ",valor_lum);
     		printf("\r\n");	//Imprime cambio de linea
+
     	}
 #endif
 
@@ -158,6 +164,11 @@ int main(void) {
     		toggleLedVerde();
     		apagarLedAzul();
     		break;
+
+    	case kFSM_ENVIANDO_MQTT_MSJ_T_H:
+    		ec25sensor(peso);
+
+    	    break;
 
     	default:
     		apagarLedRojo();
