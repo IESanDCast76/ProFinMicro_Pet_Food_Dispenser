@@ -384,14 +384,14 @@ status_t ec25EnviarMensajeDeTexto(uint8_t *mensaje, uint8_t size_mensaje ){
 }
 
 
-void ec25EnviarMensajeMQTT(void){
+void ec25EnviarPesoMQTT(void){
 
 	uart0ImprimirMensaje((&ec25_mensaje_mqtt),strlen(ec25_mensaje_mqtt));
 
 }
 
 
-status_t ec25sensor(float peso){
+status_t pesosensor(float peso){
 
 
 	sprintf(ec25_mensaje_mqtt,"peso,%.2f,\r\n %c",peso, 0x1A);
@@ -542,7 +542,7 @@ uint8_t ec25Polling(void){
 
 	case kFSM_ENVIANDO_MQTT_MSJ_T_H:
 		printf("Enviando temperatura:");
-		ec25EnviarMensajeMQTT();
+		ec25EnviarPesoMQTT();
 		//printf("%s\r\n%c", ec25_buffer_tx,0x1A);	//Envia mensaje de texto incluido  CTRL+Z (0x1A)
 		//ec25EnviarComandoATMQTT(kAT_MQTT_MSJ_TEMP);
 		ec25BorrarBufferRX();	//limpia buffer para recibir datos de quectel

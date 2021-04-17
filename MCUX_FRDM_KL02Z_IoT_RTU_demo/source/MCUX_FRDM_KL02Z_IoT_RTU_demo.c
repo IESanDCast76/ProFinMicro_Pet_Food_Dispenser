@@ -73,7 +73,11 @@ int main(void) {
 	uint8_t ec25_estado_actual;
 
 	uint32_t adc_dato;
+	float pesadc;
+	float pes_g;
 	float peso;
+	uint16_t resolucion_peso=4095.0;
+    uint8_t vreference=4.75;
 	uint8_t adc_base_de_tiempo=0;
 
 
@@ -136,12 +140,14 @@ int main(void) {
     	adc_base_de_tiempo++;//incrementa base de tiempo para tomar una lectura ADC
     	if(adc_base_de_tiempo>10){	// >10 equivale aproximadamente a 2s
     		adc_base_de_tiempo=0;	//reinicia contador de tiempo
-    		adcTomarCaptura(PTB8_ADC0_SE11_CH14, &adc_dato);	//inicia lectura por ADC y guarda en variable adc_dato
-    		peso= adc_dato;
-    		//printf("ADC ->");
-    		//printf("PTB8:%d ",adc_dato);	//imprime resultado ADC
-    		//printf("PTB8 vin:%f ",digital_out);
-    		//printf("luminosidad:%f ",valor_lum);
+    		adcTomarCaptura(PTA8_ADC0_SE3_Ch3, &adc_dato);	//inicia lectura por ADC y guarda en variable adc_dato
+    		pesadc=(float)adc_dato;
+    		pes_g=pesadc*(vreference/resolucion_peso);
+    		peso=(pes_g*100.0)/vreference;
+    		printf("adc_dato:%d ",adc_dato);
+    		printf("adc_dato_float:%f ",pesadc);
+    		printf("pes_g:%f ",pes_g);
+    		printf("peso:%f ",peso);
     		printf("\r\n");	//Imprime cambio de linea
 
     	}
@@ -166,7 +172,7 @@ int main(void) {
     		break;
 
     	case kFSM_ENVIANDO_MQTT_MSJ_T_H:
-    		ec25sensor(peso);
+    		pesosensor(peso);
 
     	    break;
 

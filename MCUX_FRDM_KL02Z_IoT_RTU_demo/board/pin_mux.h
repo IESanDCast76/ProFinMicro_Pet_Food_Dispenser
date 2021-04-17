@@ -100,48 +100,6 @@ void UART_InitPins(void);
  */
 void LED_InitPins(void);
 
-/*! @name PORTB3 (number 23), J7[10]/I2C0_SCL/UART0_TX
-  @{ */
-
-/* Symbols to be used with PORT driver */
-#define I2C_INITPINS_ACCEL_SCL_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define I2C_INITPINS_ACCEL_SCL_PIN 3U                   /*!<@brief PORT pin number */
-#define I2C_INITPINS_ACCEL_SCL_PIN_MASK (1U << 3U)      /*!<@brief PORT pin mask */
-                                                        /* @} */
-
-/*! @name PORTB4 (number 24), J7[9]/I2C0_SDA/UART0_RX
-  @{ */
-
-/* Symbols to be used with PORT driver */
-#define I2C_INITPINS_ACCEL_SDA_PORT PORTB               /*!<@brief PORT peripheral base pointer */
-#define I2C_INITPINS_ACCEL_SDA_PIN 4U                   /*!<@brief PORT pin number */
-#define I2C_INITPINS_ACCEL_SDA_PIN_MASK (1U << 4U)      /*!<@brief PORT pin mask */
-                                                        /* @} */
-
-/*! @name PORTA9 (number 20), J10[5]/ADC0_SE2/I2C1_SDA
-  @{ */
-
-/* Symbols to be used with PORT driver */
-#define I2C_INITPINS_EXT_SDA_PORT PORTA               /*!<@brief PORT peripheral base pointer */
-#define I2C_INITPINS_EXT_SDA_PIN 9U                   /*!<@brief PORT pin number */
-#define I2C_INITPINS_EXT_SDA_PIN_MASK (1U << 9U)      /*!<@brief PORT pin mask */
-                                                      /* @} */
-
-/*! @name PORTA8 (number 19), J10[6]/ADC0_SE3/I2C1_SCL
-  @{ */
-
-/* Symbols to be used with PORT driver */
-#define I2C_INITPINS_EXT_SCL_PORT PORTA               /*!<@brief PORT peripheral base pointer */
-#define I2C_INITPINS_EXT_SCL_PIN 8U                   /*!<@brief PORT pin number */
-#define I2C_INITPINS_EXT_SCL_PIN_MASK (1U << 8U)      /*!<@brief PORT pin mask */
-                                                      /* @} */
-
-/*!
- * @brief Configures pin routing and optionally pin electrical features.
- *
- */
-void I2C_InitPins(void);
-
 /*! @name PORTA10 (number 21), J8[5]/IRQ_8
   @{ */
 
@@ -161,6 +119,15 @@ void I2C_InitPins(void);
  *
  */
 void MMA8451_InitPins(void);
+
+/*! @name PORTA8 (number 19), J10[6]/ADC0_SE3/I2C1_SCL
+  @{ */
+
+/* Symbols to be used with PORT driver */
+#define ADC_INITPINS_adc_peso_PORT PORTA               /*!<@brief PORT peripheral base pointer */
+#define ADC_INITPINS_adc_peso_PIN 8U                   /*!<@brief PORT pin number */
+#define ADC_INITPINS_adc_peso_PIN_MASK (1U << 8U)      /*!<@brief PORT pin mask */
+                                                       /* @} */
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
